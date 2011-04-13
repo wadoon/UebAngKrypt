@@ -1,0 +1,21 @@
+#*
+res/Dokumente-Beck/
+*~
+*.tmp
+
+*.fasl
+*.fas
+
+#Latex exludes
+*log
+*pdf
+*out
+*aux
+*toc
+*idx
+*loc
+*foc
+*bbl
+*blg
+*ilg
+*ind

@@ -1,0 +1,378 @@
+\section{Übung 2}
+
+\subsection{Aufgabe 1}
+
+\subsubsection{Verschiebechiffren}
+
+\begin{align}
+	E_1: & z \mapsto (z +k_1)~\mod n \\
+	E_2: & z \mapsto (z +k_2)~\mod n 
+\end{align}
+
+Dann wäre die Verkettung $ E_2 \circ E_1 $ :
+
+\begin{align}
+	E_2 \circ E_1 & = E_2(E_1(z)) =  (((z +k_1)~\mod n) +k_2)~\mod n \\
+	              & = z+\underbrace{k_1+k_2}_{k_3} ~\mod n \\
+	              & = z+k_3 ~\mod n = E_3(z)
+\end{align}
+
+Wir folgern daraus, dass eine Verkettung von zwei Verschiebechiffren keine zusätzlichen Gewinn bringt.
+
+\subsubsection{Multiplikative Chiffren}
+
+\begin{align}
+	E_1: & z \mapsto (z \cdot  t_1)~\mod n \\
+	E_2: & z \mapsto (z \cdot  t_2)~\mod n 
+\end{align}
+
+Dann wäre die Verkettung $ E_2 \circ E_1 $ :
+
+\begin{align}
+	E_2 \circ E_1 & = E_2(E_1(z)) =  (((z  \cdot t_1)~\mod n)  \cdot t_2)~\mod n \\
+	              & = z \cdot \underbrace{t_1 \cdot t_2}_{t_3} ~\mod n \\
+	              & = z \cdot t_3 ~\mod n = E_3(z)
+\end{align}
+
+Wir folgern daraus, dass eine Verkettung von zwei Multiplikativen Chiffren keine zusätzlichen Gewinn bringt.
+
+
+\subsubsection{Tauschchiffren}
+
+\begin{align}
+	E_1: & z \mapsto (z \cdot t_1 + k_1)~\mod n \\
+	E_2: & z \mapsto (z \cdot  t_2 + k_2)~\mod n 
+\end{align}
+
+Dann wäre die Verkettung $ E_2 \circ E_1 $ :
+
+\begin{align}
+	E_2 \circ E_1 & = E_2(E_1(z)) =  (((z  \cdot t_1 + k_1)~\mod n)  \cdot t_2 +k_2)~\mod n \\
+	              & = z \cdot \underbrace{t_1 \cdot t_2}_{t_3} + \underbrace{k_1 \cdot t_2 + k_2}_{k_3} ~\mod n \\
+	              & = z \cdot t_3 + k_3~\mod n = E_3(z)
+\end{align}
+
+Wir folgern daraus, dass eine Verkettung von zwei Tauschchiffren keine zusätzlichen Gewinn bringt.
+
+\subsection{Aufgabe 2}
+
+\subsubsection*{Berechnen Sie die multiplikativen Inverse zu $3,~5 ~\text{und} ~22~$ in $Z_23$.}
+
+\begin{align*}
+	23 & = 7 \cdot 3 + 2 \\
+     3 & = 1 \cdot 2 + 1 \\
+     2 & = 2 \cdot 1 + 0 
+\end{align*}
+
+\begin{align*}
+	 1 & = 3 - 2 \\
+     1 & = 3 - (23 - 7 \cdot 3 ) = \\
+     1 & = \underline{8} \cdot - 1 \cdot 23    
+\end{align*}
+
+
+\begin{align*}
+	23 & = 1 \cdot 15 + 8 \\
+    15 & = 1 \cdot 8 + 7 \\
+     8 & = 1 \cdot 7 + 1 \\     
+     7 & = 7 \cdot 1 + 0     
+\end{align*}
+
+\begin{align*}
+	 1 & = 8 - 7 \\
+	 1 & = (23-15) - (15 - 8)        \\
+	 1 & = (23-15) - (15 - (23-15))  \\
+	 1 & = 23 - 15  - 15 + 23 - 15   \\
+	 1 & = \underbrace{\underline{- 3}}_{20} \cdot 15 + 2 \cdot 23 	 	 
+\end{align*}
+
+\begin{align*}
+	23 & = 1 \cdot 22 + 1 \\
+    22 & = 22 \cdot 1 + 0 \\
+\end{align*}
+
+\begin{align*}
+	 1 & = 1 \cdot 23 \underbrace{ \underline{- 1}}_{22} \cdot 22 \\
+\end{align*}
+
+\subsubsection*{Berechnen Sie die multiplikativen Inversen zu $3,~ 15 ~\text{und} ~22 ~\text{in}~ Z_{24}.$}
+
+\begin{align*}
+	24 & = 3 \cdot 8 + 0 \\
+	&\Rightarrow \neg \exists ~ \text{multiplikatives Inverses}
+\end{align*}
+
+\begin{align*}
+	24 & = 1 \cdot 15 + 9 \\
+ 	15 & = 1 \cdot 9 + 6 \\
+	9 & = 1 \cdot 6 + 3 \\
+	6 & = 2 \cdot 3 + 0 \\
+	&\Rightarrow \neg \exists ~ \text{multiplikatives Inverses}
+\end{align*}
+
+\begin{align*}
+	24 & = 1 \cdot 22 + 2 \\
+ 	22 & = 11 \cdot 2 + 0 \\
+	&\Rightarrow \neg \exists ~ \text{multiplikatives Inverses}
+\end{align*}
+
+\subsubsection*{Zeigen Sie, dass $~(n-1)~$ in $Z_n$ bzgl. der Multiplikation zu sich selbst invers ist.}
+
+\begin{align}
+	(n-1) \cdot (n-1) & \equiv_n n^2 -2n + 1 \\
+					  & \equiv_n 1 \mod ~ n
+\end{align}
+
+
+
+\subsection{Aufgabe 3}
+
+Alphabet: \verb+ABCDEFGHIJKLMNOPQRSTUVWXYZ+
+Alphabet: \verb+UEBRDNWOLKMSIFHTACGJPQVXYZ+
+
+\begin{verse}
+Wind Nord-Ost, Startbahn null-drei,\\
+Bis hier hör ich die Motoren.\\
+Wie ein Pfeil zieht sie vorbei,\\
+Und es dröhnt in meinen Ohren.\\
+Und der nasse Asphalt bebt,\\
+Wie ein Schleier staubt der Regen,\\
+Bis sie abhebt und sie schwebt\\
+Der Sonne entgegen.\\
+Über den Wolken\\
+Muß die Freiheit wohl grenzenlos sein.\\
+Alle Ängste, alle Sorgen, sagt man,\\
+Blieben darunter verborgen und dann\\
+Würde, was hier gross und wichtig erscheint,\\
+Plötzlich nichtig und klein.\\
+\end{verse}
+
+
+
+
+\subsection{Aufgabe 4}
+
+\subsubsection{}
+Die Playfair-Verschlüsselung stellt eine Substitution für Buchstaben-Paare dar. 
+Es handelt sich um eine bigraphische monoalphabetische Methode.
+ Ähnlich wie bei der einfachen (monographischen) Buchstabensubstitution,
+  beruhen Methoden zur Entzifferung von Playfair im Wesentlichen auf einer 
+  Analyse der Häufigkeitsverteilung hier der Buchstabenpaare (Bigramme).
+   In der deutschen Sprache beispielsweise sind die Bigramme "er", "en" und "ch" sehr häufig. Im Beispieltext fallen die "Doppler" (also Bigramm-Wiederholungen) ME…ME, IK…IK, QC…QC und TE…TE sowie die "Reversen" (Wiederholung eines umgedrehten Bigramms) CQ…QC auf, die sich in gleicher Weise im englischen Klartext wiederfinden.
+Da kein Buchstabe mit sich selbst gepaart wird, gibt es nur 600 (25×24) mögliche Buchstabenkombinationen, 
+die substituiert werden. Überdies gibt es eine Reihe von Symmetrien, die teilweise schon am obigen Beispieltext erkannt werden können.
+So hilft der erwähnte Klartext-Geheimtext-Zusammenhang EL ↔ CQ und LE ↔ QC 
+beim Bruch des Textes. Ist nämlich ein Bigramm geknackt, dann ist auch sofort das reverse (umgedrehte) Bigramm bekannt.
+In den Fällen des Überkreuz-Schrittes gibt es darüber hinaus noch weitere Beziehungen zwischen den vier auftretenden Buchstaben
+ in der Art (vgl. beispielsweise obere linke Ecke des Quadrats) DC ↔ EB, CD ↔ BE, EB ↔ DC sowie BE ↔ CD, die der Angreifer zur
+  Entzifferung ausnutzen kann. Ferner hat auch die geschilderte Methode zur Erzeugung des Playfair-Quadrats Schwächen, denn
+   es endet häufig – wie auch im Beispiel – auf "XYZ".
+Die Playfair-Verschlüsselung ist somit weit entfernt von einer allgemeinen bigraphischen Methode
+ mit völlig willkürlicher Zuordnung der Buchstabenpaare und stellt in der heutigen Zeit
+  kein sicheres Verschlüsselungsverfahren mehr dar. So lassen sich mit modernen Mitteln
+   auch relativ kurze Playfair-Texte in sehr kurzer Zeit brechen.
+
+
+\subsection{Aufgabe 5}
+
+Herleitung des Gleichungssystems: 
+
+\begin{align}
+H x_1+Ix_2 &= \ddot{A}  & Lx_1+Lx_2 = U \\
+H x_3+Ix_4 &= U  & Lx_3+Lx_4 = K \\
+\end{align}
+
+\begin{math}
+\begin{pmatrix}
+7 & 8 & 0 & 0 \\ 
+0 & 0 & 7 & 8 \\ 
+11 & 11 & 0 & 0 \\ 
+0 & 0 & 11 & 11
+\end{pmatrix}
+\begin{pmatrix} x_1 \\x_2 \\x_3 \\x_4 \end{pmatrix}
+=
+\begin{pmatrix} 26 \\ 20 \\ 20 \\ 10 \end{pmatrix}
+\end{math}
+
+
+\begin{align}
+\begin{gmatrix}[p]
+7 & 8 & 0 & 0   & 26 \\ 
+0 & 0 & 7 & 8   & 20 \\ 
+11 & 11 & 0 & 0 & 20 \\ 
+0 & 0 & 11 & 11 & 10
+\rowops
+\swap{1}{2}
+\end{gmatrix} &
+\begin{gmatrix}[p]
+7 & 8 & 0 & 0   & 26 \\ 
+11 & 11 & 0 & 0 & 20 \\ 
+0 & 0 & 7 & 8   & 20 \\ 
+0 & 0 & 11 & 11 & 10
+\rowops
+\mult{0}{\cdot 7^{-1}  = 25 }
+\mult{1}{\cdot 11^{-1} =  8 }
+\mult{2}{\cdot 7^{-1}  = 25 }
+\mult{3}{\cdot 7^{-1}  =  8 }
+\end{gmatrix}\\[5mm]
+\begin{gmatrix}[p]
+1 & 26 & 0 & 0   & 12 \\ 
+1 & 1 & 0 & 0 & 15 \\ 
+0 & 0 & 1 & 26   & 7 \\ 
+0 & 0 & 1 & 1 & 22
+\rowops
+\add[\cdot -1]{0}{1}
+\add[\cdot -1]{2}{3}
+\end{gmatrix}&
+\begin{gmatrix}[p]
+1 & 26 & 0 & 0   & 12 \\ 
+0 & 4 & 0 & 0 & 3 \\ 
+0 & 0 & 1 & 26   & 7 \\ 
+0 & 0 & 0 & 4 & 22
+\rowops
+\mult{1}{\cdot 4^{-1}=22}
+\mult{3}{\cdot 4^{-1}=22}
+\end{gmatrix}\\[5mm]
+\begin{gmatrix}[p]
+1 & 26 & 0 & 0   & 12 \\ 
+0 & 1 & 0 & 0 & 8 \\ 
+0 & 0 & 1 & 26   & 7 \\ 
+0 & 0 & 0 & 1 & 11
+\rowops
+\add[\cdot -26]{1}{0}
+\add[\cdot -26]{3}{2}
+\end{gmatrix}&
+\begin{pmatrix} 7 \\  8 \\  11 \\  11\end{pmatrix}  =
+\begin{pmatrix} H \\  I \\  L \\  L\end{pmatrix} 
+\end{align}
+
+\paragraph*{Bildung der Inversen $K^{-1}$}
+
+\begin{align*}
+\begin{gmatrix}[p]
+ 7 &  8 & 1 &0  \\
+11 & 11 & 0 &1
+\rowops 
+\mult{0}{\cdot 7^{-1} = 25}
+\end{gmatrix} &
+\begin{gmatrix}[p]
+ 1 &  26 & 25 &0  \\
+11 & 11 & 0 &1
+\rowops 
+\add[\cdot 11^{1}]{0}{1}
+\end{gmatrix} \\
+\begin{gmatrix}[p]
+ 1 &  26 & 25 &0  \\
+ 0 &  15 & 15 &1   
+\rowops 
+\mult{1}{\cdot 15^{-1} = 2}
+\add[\cdot 26]{1}{0}
+\end{gmatrix} &
+\begin{gmatrix}[p]
+1 & 0 & 28 & 6 \\
+0 & 1 & 1 & 2
+\end{gmatrix} 
+\end{align*}
+
+\begin{equation} K^{-1} = 
+\begin{pmatrix}
+28 & 6 \\ 
+1 & 2
+\end{pmatrix} 
+\end{equation}
+
+\textbf{Lösung: HILLISTEINFACHZUKNACKEN}
+
+\subsection{Aufgabe 6}
+\subsubsection{Warum gilt für zufällige Texte $I_r = \dfrac{1}{26} = 0.0385$?}
+
+Wirklicher Zufall würde bedeuten das jeder Buchstaben $a \in A$ gleich oft im Text vorkommt.
+Folglich handelt es sich um einen Laplace-Raum (wie beim Würfel) und die Warscheinlichkeit für $P(X = a) = \dfrac{1}{|A|}$.
+In unseren Fall ist $ |A|=26 $.
+
+%\begin{align}
+%I = \dfrac{\sum_{i=1}{26} m_i (m_i-1)}{m(m-1)} }}
+%m_1 = m_2 = m_3 = \cdots =  m_26 \\
+%I = 0,0469
+%\end{align}
+
+\subsubsection{}
+\subsubsection{}
+
+\subsection{Übungsaufgabe: One-Time-Pad}
+
+\begin{align}
+P_1 &= hike = 001~ 010~ 011~ 000  \\
+P_2 &= rike = 101~ 010~ 011~ 000  \\
+C   &= eier = 000~ 010~ 000~ 101  \\
+K   &= klet = 011~ 100~ 000~ 111  \\
+\end{align}
+
+\subsubsection{}
+
+\begin{align}
+ 001~ 010~ 011~ 000 &\xor \\
+ 000~ 010~ 000~ 101 &=   \\
+ 001~ 000~ 011~ 101 &= hekr
+\end{align}
+
+\begin{align}
+ 101~ 010~ 011~ 000 &\xor \\
+ 000~ 010~ 000~ 101 &=   \\
+ 101~ 000~ 011~ 101 &= rekr
+\end{align}
+
+\subsubsection{}
+
+\begin{align}
+ 001~ 010~ 011~ 000 &\xor \\
+ 011~ 100~ 000~ 111 &=   \\
+ 010~ 110~ 011~ 111 &= iskt
+\end{align}
+
+\begin{align}
+ 101~ 010~ 011~ 000~ &\xor \\
+ 011~ 100~ 000~ 111~ &=   \\
+ 110~ 110~ 011~ 010~ &= sski
+\end{align}
+
+\subsubsection{}
+
+wenn $C_{1_i} = C_{2_i} \Rightarrow P_{1_i} = P_{2_i}$ 
+
+\begin{equation}
+C_1 \xor C_2 = (P_1 \xor K) \xor (P_2 \xor K) = P_1 \xor P_2 
+\end{equation}
+
+\subsubsection{}
+
+\begin{align}
+K &= C_1 \xor P_1 \\
+C_2 \xor K &= P_2
+\end{align}
+
+
+\subsection{Skytale}
+\subsubsection{}
+
+\begin{align}
+E(k, x_1 , \ldots , x_{km} ) &= \\
+x_1 x_{m+1} x_{2m+1} \ldots x_{(k−1)m+1} x_{2} x_{m+2} x_{2m+2} \ldots x_{(k−1)m+2} \ldots x_m x_{2m} x_{3m} \ldots x_km
+\\
+\begin{pmatrix}
+x_1 & x_2 & \cdots & x_m \\ 
+x_{m+1} & x_{m+2} & \cdots & x_{2m} \\ 
+\vdots & \vdots & \ddots & \vdots \\ 
+x_{(k-1)m+1} & x_{(k-1)m+2} & \cdots & x_{km}
+\end{pmatrix} 
+\end{align}
+
+
+%f(x) = K * x mod (N'-1)
+%N' = K [N/K] für x \in N x startet bei 0
+%f(x) = N/K xmod (N-1)
+
+Ist die Klartextlänge kein Vielfaches von k, so kann der Klartext durch das Ein- bzw.
+Anfügen von sogenannten Blendern (Füllzeichen) verlängert werden. Damit der Emp\-
+fänger diese Füllzeichen nach der Entschlüsselung wieder entfernen kann, ist lediglich
+darauf zu achten, dass sie im Klartext leicht als solche erkennbar sind.
