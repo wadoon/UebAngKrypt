@@ -1,14 +1,8 @@
-#*
-res/Dokumente-Beck/
 *~
 *.tmp
 
-*.fasl
-*.fas
-
-#Latex exludes
 *log
-*pdf
+*dvi
 *out
 *aux
 *toc

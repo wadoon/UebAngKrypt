@@ -154,7 +154,40 @@ A = \left (\begin{array}{*{32}{r}}
 (1\,6\,27\,5\,11\,25\,12\,4\,28\,21\,26\,29\,10\,22\,2\,19\,13\,17\,7\,16)
 \end{equation}												
 
+\subsubsection{Zeigen Sie, dass für den DES Schlüssel $K = 0xE0E0E0E0F1F1F1F1$
+(inklusive Parity-Bits) alle Rundenschlüssel identisch sind. Warum gilt in
+diesem Fall $DES(K, DES(K, M)) = M$ (d.h. Ver- und Entschlüsselung sind
+identisch)?}
+
+\begin{equation}
+K=\begin{matrix}
+1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 \\
+1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 \\
+1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 \\
+1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 \\
+1 & 1 & 1 & 1 & 0 & 0 & 0 & 1 \\
+1 & 1 & 1 & 1 & 0 & 0 & 0 & 1 \\
+1 & 1 & 1 & 1 & 0 & 0 & 0 & 1 \\
+1 & 1 & 1 & 1 & 0 & 0 & 0 & 1 
+\end{matrix} \xrightarrow{PC1}
+\begin{matrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\ 
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\ 
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+0 & 0 & 0 & 0 & 0 & 0 & 0 
+\end{matrix}
+\end{equation}
+
+Da alle in den folgenden Runden lediglich zu Spaltentransposition kommt und jede Spalte gleich sind, 
+sind alle $C_i,D_i$ für alle $1 \le i \le 16$.
+
+
 \subsection{A5/1}
+
 \begin{align}
 X = (x_0, x_1 \cdots , x_{18}) &= (1010101010101010101)    \\
 Y = (y_0, y_1, \cdots , y_{21}) &= (1100110011001100110011) \\
@@ -215,9 +248,9 @@ Rnd & $x_8$ & $y_{10}$  & $z_{10}$ & m &  $X'$ & $Y'$ & $Z'$ & Bit \\ \hline
 
 \subsubsection{}
 \lstset{language=Java}
-\lstinputlisting{/home/weigla/proj/AngewandteKryptologie/src/A51.java}
+\lstinputlisting{src/A51.java}
  
 \subsection{RC4}
 
 \lstset{language=Java}
-\lstinputlisting{/home/weigla/proj/AngewandteKryptologie/src/RC4.java}
+\lstinputlisting{src/RC4.java}
