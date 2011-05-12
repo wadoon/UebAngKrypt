@@ -10,9 +10,9 @@
 \begin{center}
 \begin{tabular}{cc|cc|c}
 $x_1$ & $x_2$ & $x_3$ & $x_4$ & $F(x_1,x_2,x_3,x_4)$ \\
-$0$ & $0$ & $1$ & $1$ & $11$ \\
-$1$ & $1$ & $1$ & $1$ & $00$ \\
-$0$ & $0$ & $0$ & $0$ & $00$ \\
+$1$ & $0$ & $1$ & $1$ & $10$ \\
+$1$ & $0$ & $1$ & $1$ & $10$ \\
+$0$ & $1$ & $0$ & $0$ & $01$ \\
 \end{tabular}
 \end{center}
 
@@ -93,7 +93,19 @@ Sowie das Bob gewinnt, da er das günstigste Gebot abgeben hat.
 \item Störungen des Übertragungskanals
 \item ohne Timetamp wäre Replayangriffe möglich
 \item ohne Salt wäre die Authentifizierung komplett ausgehebelt
+\item Brute-Force-Attake ausprobieren von Beträgen,...
+\item Zeit muss synkron sein.
 \end{itemize}
+
+\textbf{Wambach:}
+$H(Name \circ Betrag)$ kann jeder berechnen.
+
+\textbf{Münze werfen Internet:} X,Y wählen eine große Zahl.
+Austausch der Hashwert der Zahlen.
+X,Y austauschen.
+X+Y ist die Zufallszahl.
+
+
 
 \subsection{Datenbankschutz durch Verschlüsselung und Hash-Funktionen}
 
