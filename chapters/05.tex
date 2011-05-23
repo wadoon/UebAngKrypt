@@ -303,17 +303,17 @@ Nachricht: $m = 1299, k = 853$\\
 \subsubsection{Führen Sie die Verschlüsselung durch.}
 
 \begin{align}
-	a&= g^k \mod p = 2^{853} \mod 2579 = 453 \\
+	a&= g^k \mod p = 2^{853} \mod 2579 = 435 \\
 	b&= y^km \mod p = 949^{853} \cdot 1299 \mod 2579 =2396
 \end{align}
 
-\[ C= (453,2396) \]
+\[ C= (435,2396) \]
 
 \subsubsection{Führen Sie die Entschlüsselung des Ciphertexts durch und überprüfen Sie, ob
 Sie wieder m erhalten.}
 
 \begin{align}
-	P = \dfrac{b}{a^x} \mod 2579= \dfrac{2396}{453^{765}} \mod 2579 = 5 
+	P = \dfrac{b}{a^x} \mod 2579= \dfrac{2396}{435^{765}} \mod 2579 = 5 
 \end{align}
 \textbf{WTF!}
 
