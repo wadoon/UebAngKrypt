@@ -27,17 +27,16 @@ PublicKey: $(24,40,33,43)$
 
 \subsubsection{Finden Sie den Plaintext zum Ciphertext $C = (67, 64)$}
 
+$ m^{-1} = 6 $:
 
-$m^{-1} = 6$:
-
-$C_1= 67 * 6 \mod 47 = 26$
+$ C_1= 67 * 6 \mod 47 = 26 $
 
 \begin{tabular}{ccc}
- $S_i$ & $Cm^{-1}$ & $P$ \\ \hline
- 23    & 26  & 1  \\
- 10    & 3   & 0  \\
- 5     & 3   & 0  \\
- 3     & 0   & 1  
+ $S_i$ & $ Cm^{-1} $ & $P$ \\ \hline
+ 23    & 26          & 1  \\
+ 10    & 3           & 0  \\
+ 5     & 3           & 0  \\
+ 3     & 0           & 1  \\
 \end{tabular}
 
 
@@ -58,8 +57,7 @@ $P_2 = 0011$
 
 \subsection{RSA auf Nachricht in Blöcken}
 \begin{align}
-  P &= \text{'FHT4EVER'}  &
-  n &= 13 \cdot 17 = 221 & e &= 3
+  P &= \text{'FHT4EVER'}  &  n &= 13 \cdot 17 = 221 & e &= 3
 \end{align}
 
 
@@ -81,8 +79,8 @@ $P_2 = 0011$
 	x = a n N + b m M  = 3 \cdot 12 \cdot N + 4 \cdot 11 M
 \end{equation}
 
-$$ggT(12, 11) = 1 \text{ mit } a^{-1} = -1 = N$$
-$$ggT(11, 12) = 1 \text{ mit } a^{-1} =  1 = M$$
+\[ggT(12, 11) = 1 \text{ mit } a^{-1} = -1 = N\]
+\[ggT(11, 12) = 1 \text{ mit } a^{-1} =  1 = M\]
 
 \begin{align}
 	X &= 3 \cdot 12 \cdot 1 + 4 \cdot 11 \cdot -1 \\
@@ -96,6 +94,8 @@ $$ggT(11, 12) = 1 \text{ mit } a^{-1} =  1 = M$$
 
 \subsubsection{Es sei $m = 11, n = 12, l = 12, a = 3, b = 4 \text{ und } c=5$. Geben Sie ein $x$ an, für das
 gilt: $x \mod m = a$ und $x \mod n = b$ und $x \mod l = c$.}
+
+
 
 \begin{align}
  X = a \cdot n \cdot l (nl)^{-1}
@@ -141,6 +141,8 @@ Gesucht $x$:
 $$ x \mod n_{1} = C_{1} \wedge
    x \mod n_{2} = C_{2} \wedge
    x \mod n_{3} = C_{3} \wedge   $$
+
+
 
 \begin{align}
 	x = \underbrace{C_{1} n_{2} n_{3} N_{23}}_{\equiv 1 \mod n_1}
@@ -223,6 +225,7 @@ Lösung von $16  \equiv 2 \mod 7$ mit Folgerung (2.5).
 
 \[ 2^{\dfrac{7+1}{4}}  \imp x_1 = 4 \wedge x_2 = 7 - 4 = 3 \]
 
+\noindent
 Lösung von $16 \equiv 1 \mod 5$:
 
 \[ x_3 = 1 \text{ und } x_4 = 4 \]
@@ -267,22 +270,21 @@ Sei der öffentliche Schlüssel $n=77$, der geheime Schlüssel $p=7$ und $q=11$.
 Gegeben sei der Ciphertext $C = 23$.
 
 
-
 \subsubsection{Wie lauten die möglichen Klartexte?}
-
 
 Lösung für $x^2 \equiv_p C$ (2.5):    
 
 \begin{equation}
-	C^{\dfrac{7+1}{4}} \equiv_7 = 4
+	C^{\dfrac{7+1}{4}} \equiv_7  4
 \end{equation}
 
 \[ x_{12} = 4,3 \]
 
+\noindent
 Lösung für $x^2 \equiv_q C$ (2.5):    
 
 \begin{equation}
-	C^{\dfrac{11+1}{4}} \equiv_11 = 1
+	C^{\dfrac{11+1}{4}} \equiv_11  1
 \end{equation}
 
 
@@ -313,23 +315,26 @@ Nachricht: $m = 1299, k = 853$\\
 Sie wieder m erhalten.}
 
 \begin{align}
-	P = \dfrac{b}{a^x} \mod 2579= \dfrac{2396}{435^{765}} \mod 2579 = 5 
+	P &= \dfrac{b}{a^x} \mod 2579= 
+      &= \dfrac{2396}{436^{765}} \mod p  
+	  &= \dfrac{2396}{2424} \mod p 
+	  &= 2396 * 2424^{-1} \mod p
+      &= 1299
 \end{align}
-\textbf{WTF!}
+
+
 
 \subsection{Diskrete Exponential-Funktion}
 
-
-
-
 \includegraphics[scale=1]{eclipse/expofun.pdf}
+
 
 \subsection{Primfaktorzerlegung}
 \subsection{Fermatscher Primzahltest}
-\subsection{Inverses zu ($n-1) \mod n$}
+
+\subsection{Inverses zu $(n-1) \mod n$}
 \subsection{$a(n-1) \mod n$}
 \subsection{$\phi(n)$ für $n < 500$}
-
 \subsubsection{Berechnen Sie $\phi(n)$ für $n < 500$ und tragen Sie die Werte in einem Graphen}
 
 \includegraphics[scale=1]{eclipse/growth-rate.pdf}
@@ -338,5 +343,5 @@ Sie wieder m erhalten.}
 
 \begin{align}
 	 \phi(n) &\le n-1 \\
-	 & \in \mathcal{O}(n)
+	         & \in \mathcal{O}(n)
 \end{align}	

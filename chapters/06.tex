@@ -1,0 +1,80 @@
+\section{Digitale Signatur und Zertifikate}
+
+\subsection{Keine Signatur mit dem Rucksack}
+
+\subsection{RSA-Signatur}
+	\[n = 3 * 5 = 15, e = 3, M = 7\]
+	
+   \[ d = 3 \imp 3 \cdot 3 \equiv 1 \mod 8 \]	
+	
+\subsubsection{Berechnen Sie die digitale Unterschrift nach dem RSA-Verfahren.}
+
+\begin{align}
+	D_{SK}(M) = 7^{3} \mod 15 = 13
+\end{align}
+
+\subsubsection{Was übertragt der Sender zum Empfänger, wenn er die Nachricht M signiert übertragen will?}
+	
+	\[ (M,D_{SK}) = (7,13) \]
+
+\subsubsection{Verifizieren Sie die Unterschrift.}
+
+\[ E_{K} = 13^{3} \mod 15 = 7 = M \]
+
+
+\subsection{Elgamal-Signatur}
+\[ p = 467, g = 2, x = 127, y = 2127 = 132 mod 467\]
+Die Nachricht $M = 100$ soll unterschrieben werden. Es wird $k = 213$ verwendet.
+\subsubsection{Berechnen Sie die digitale Unterschrift nach dem Elgamal-Verfahren.}
+
+\[ a = g^k \mod p = 2^213 \mod 467 = 29 \]
+
+\begin{align}
+	                 M &= (xa + kb) \mod (p-1) \\
+                     M &= ((127\cdot 29 \mod (467-1)) + (213 \cdot b \mod (467-1))) \mod (467-1) \\
+               M - 421 &=  213 \cdot b \mod (467-1) \\
+	\dfrac{M-421}{213} &= b \mod 466 \\
+	(100 - 421) \cdot 213^{-1} &\imp b = -321\cdot 213^{-1} \mod 466 \\
+							   &\imp b = -321 \cdot -35 \mod 466 = 51	
+\end{align}
+
+\subsubsection{Was übertragt der Sender zum Empfänger, wenn er die Nachricht M signiert
+übertragen will?}
+
+	\[ (M, (a,b)) = (100, (29,51)) \]
+
+\subsubsection{Verifizieren Sie die Unterschrift.}
+
+\begin{align}
+	g^M     &\equiv y^a a^b \mod p 					\\
+	2^{100} &\equiv 132^{29} \cdot 29^{51} \mod 467	\\
+	189     &\equiv 189		
+\end{align}
+
+\subsubsection{Länge der Passphrase für digitale Signatur}
+
+Sie haben einen 1024 Bit (2048 Bit) RSA-Schlüssel. Wie lang sollte die Passphrase
+zum Schutz des auf Ihrer Festplatte gespeicherten Schlüssels mindestens sein?
+Hinweis: Nehmen Sie an, dass sie Sicherheit eines 1024 Bit RSA-Schlüssels einem
+128 Bit symmetrischen Schlüssels entspricht.
+
+\textit{Angenommen:} Passwort $w$ $\in \Sigma^*$ besteht aus den Terminalsymbolen aus ASCII.
+\[|\Sigma| = 256-32 = 224\]
+
+\textit{Frage:} Welche Länge muss mein Passwort haben, damit $2^128$ Möglichkeiten habe.
+
+	\[ | \{ w \in \Sigma^* | |w| = x \} | = 2^{128} \]
+\begin{align}
+		|\Sigma|^|w| &= 2^{128} \\ 
+		224^x        &= 2^{128} \\
+		|w|\log_2(224) &= 128 \\
+		|w|            &=  16,395
+\end{align}	
+
+für $|\Sigma| = 64 \imp |w| = 21,3 $
+
+
+\subsection{GPG}
+\subsection{Signierung eines Java-Applets}
+\subsection{PDF-Signatur}
+
