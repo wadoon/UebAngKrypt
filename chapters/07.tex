@@ -1,0 +1,54 @@
+\section{Kryptologische Anwendungen und Protokolle}
+
+\subsection{Münzwurf am Telefon}
+Alice sendet $n = 34189$ an Bob. Bob wählt $x = 17209$ und sendet $4563$ an Alice.
+\subsubsection{Alice sendet $r = 16980$ an Bob. Kann Bob n faktorisieren? Wenn ja, geben Sie die
+Faktorisierung an.}
+
+\textbf{Ist $r=n-x$:} $n-r=x = 17209$. Faktorisierung nicht möglich, Alice gewinnt
+
+\subsubsection{Alice sendet $23474$ an Bob. Kann Bob n faktorisieren? Wenn ja, geben Sie die
+Faktorisierung an.}
+
+$ggT(x+y,n) = ggT(23474+17209, 34189) = 191$
+
+o.\,B.\,d.\,A.:~$q = \dfrac{n}{p} = 179, p = 191$ 
+
+\subsubsection{Berechnen Sie die vier Quadratwurzeln von $17209 \mod n$.}
+
+Es gibt kein $x$, sodass $x^2 \equiv 17209 \mod 34189$
+
+
+\subsection{Altersvergleich}
+\subsection{Karten kryptologisch mischen und austeilen}
+Gegeben seien die folgenden vier Spielkarten und Ihre Codierung:
+\begin{align}
+x_1="Herz Ass" &= 2  &     x_2="Pik Ass"  &= 3 \\
+x_3="Karo Ass" &= 4  &     x_4="Kreuz Ass"&= 7
+\end{align}
+Mischen und verteilen Sie die Karten nach der in der Vorlesung beim Skat-Protokoll
+vorgestellten Methode an die vier Spieler $A, B, C, D$.
+Verwenden Sie folgende Permutationen in Zykelschreibweise:
+% = (124), =(14)(23), =(134), =id (Zykelschreibweise)
+Ferner sei $p=11, a=3, b=7, c=9, d=7$.
+
+
+\subsection{Knobeln über E-Mail}
+Entwerfen Sie ein (dezentrales) Protokoll zum Knobeln (Schere, Stein, Papier) per E-
+Mail. Hinweis: Es gibt verschiedene Lösungen. Sie können z.B. Shamirs No-Key-Protokoll
+oder Hashfunktionen verwenden.
+
+\subsection{Chaffing and Winnowing}
+\subsubsection{Welche Tripel (Seriennummer, Paket, MAC) übertragen Sie nach dem
+"Chaffing and Winnowing"-Verfahren, wenn die Nachricht "FHT" lautet und die
+Paketlänge einen Buchstaben lang ist?}
+\subsubsection{Welche Tripel (Seriennummer, Paket, MAC) übertragen Sie nach dem
+"Chaffing and Winnowing"-Verfahren, wenn die Nachricht "F" lautet und die
+Paketlänge ein Bit lang ist? Verwenden Sie die 8-Bit ASCII-Codierung.}
+
+\textbf{Vorgaben:}
+Schlüssel k zur Berechnung des MAC = "geheim"
+Hash-Verfahren = MD5
+MAC-Verfahren = $H(k, H(k, M))$
+Hinweis: Sie können zur Generierung der MACS das CrypTool verwenden
+(Einzelverfahren => Hashverfahren => Generieren von MACs)
