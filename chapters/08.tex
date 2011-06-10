@@ -1,0 +1,55 @@
+\section{Kryptologische Anwendungen und Protokolle – Teil 2}
+
+\subsection{Altersvergleich}
+Führen Sie das Protokoll zum Altersvergleich mit folgenden Parametern durch.
+$ 0 \le a, b \le 4$, der öffentliche RSA-Schlüssel von Bob lautet $n=143, e=19, x = 102$.
+Als Einwegfunktion verwenden Sie eine Reduktion $\mod 53$.
+Geben Sie die notwendigen Berechnungen, die ausgetauschten Nachrichten und das
+Ergebnis für folgende Alter von Alice und Bob an:
+
+\begin{align}
+	p &= 11 & q &= 13 \\
+	d &= 19
+\end{align}
+
+\subsubsection{$a=1, b=1$}
+
+\begin{tabular}{ccc}
+	Alice 	&& Bob                       \\
+	$x=102$                             \\
+	$c = E_{PK-B}(x)=102^{19} \mod 143$ \\
+	$d = c-a = 15 - 1$     & \rarr &       \\
+    a & b &   $y &= D_{SK_B}(14+0,14+1,14+2,14+3,14+4)$ \\
+	a & b &   $~ &= (92, 102, 42, 134, 8) $\\
+	a & b &   $z &= (39, 49, 42, 28, 8)$	  \\
+    a &\larr & $(39, 49, 42+1, 28+1, 8+1)$\\
+	$f(x)=49 \in z$ & a & a
+\end{tabular}
+
+\subsubsection{a=1, b=3}
+
+\subsubsection{a=1, b=0}
+
+Angenommen Bob verzichtet leichtsinnigerweise auf die Anwendung der
+Einwegfunktion. Zeigen Sie im Fall b) wie Alice Bobs Alter rekonstruieren kann.
+
+
+\subsection{No-Key-Protokoll}
+Führen Sie das No-Key-Protokoll mit folgenden Parametern durch:
+p = 17, a = 3, b = 5 und s = 2
+Skizzieren Sie den Protokollablauf, berechnen Sie die ausgetauschten Werte und
+rekonstruieren Sie das Geheimnis.
+
+\subsection{(4,6)-Schwellwertverfahren über Gleichungssystem}
+Es seien p=19 und die folgenden Wertepaare gegeben: (1,7), (2,3), (3,4), (16, 4),
+(17,5) und (18,1). Rekonstruieren Sie aus (1,7), (2,3), (17,5) und (18,1) das
+Geheimnis und das Polynom durch Lösen des entsprechenden linearen
+Gleichungssystems.
+Zeichnen Sie das Polynom für die Wert von x=0 bis x=20.
+
+
+\subsection{(3,4)-Schwellwertverfahren über Lagrange}
+Gegeben sind folgende Punkte (1,6) (2,3), (3,2), (4,3).
+Wählen Sie drei Punkte aus und rekonstruieren Sie das Polynom über das
+Lagrangesche-Interpolationspolynom.
+Was ist das Geheimnis? Zeichen Sie das Polynom.

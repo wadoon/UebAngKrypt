@@ -20,6 +20,9 @@ Es gibt kein $x$, sodass $x^2 \equiv 17209 \mod 34189$
 
 
 \subsection{Altersvergleich}
+
+
+
 \subsection{Karten kryptologisch mischen und austeilen}
 Gegeben seien die folgenden vier Spielkarten und Ihre Codierung:
 \begin{align}
@@ -29,14 +32,64 @@ x_3="Karo Ass" &= 4  &     x_4="Kreuz Ass"&= 7
 Mischen und verteilen Sie die Karten nach der in der Vorlesung beim Skat-Protokoll
 vorgestellten Methode an die vier Spieler $A, B, C, D$.
 Verwenden Sie folgende Permutationen in Zykelschreibweise:
-% = (124), =(14)(23), =(134), =id (Zykelschreibweise)
+$\alpha = (124), \beta = (14)(23), \gamma =(134), \delta=id$ (Zykelschreibweise)
 Ferner sei $p=11, a=3, b=7, c=9, d=7$.
 
+\begin{align}
+	K &= ( x_1 , x_{2}, x_{3}, x_{4}) \\
+	K &= ( 2 , 4 , 3, 7) \\	
+\end{align}
+
+Anwendung Permutation $\alpha$ und $x^3 \mod 11$:
+
+\begin{align}
+	K &= ( 2 , 3 , 4, 7) \\	
+	K &= (2, 8, 9 , 5)    
+\end{align}
+
+Anwendung Permutation $\beta$ und $x^7 \mod 11$:
+\begin{align}
+	K &= (3, 4 , 2, 7)	
+\end{align}
+
+Anwendung Permutation $\gamma$ und $x^9 \mod 11$:
+\begin{align}
+	K &= (8, 3, 4, 6)
+\end{align}
+
+Anwendung Permutation $\delta$ und $x^7 \mod 11$:
+\begin{align}
+	K &= (2, 9, 5, 8)
+\end{align}
+
+\begin{align}
+a' &= 7 & b' &= 3 \\
+c' &= 9 & d' &= 3 
+\end{align}
+
+\begin{align}
+	x_a &= 2^{b'c'd'a'} \mod 11 = 7   \\
+	x_b &= 9^{a'c'd'b'} \mod 11 = 4   \\
+	x_c &= 5^{a'b'd'c'} \mod 11 = 3   \\
+	x_d &= 8^{a'b'c'd'} \mod 11 = 2   \\
+\end{align}
 
 \subsection{Knobeln über E-Mail}
 Entwerfen Sie ein (dezentrales) Protokoll zum Knobeln (Schere, Stein, Papier) per E-
 Mail. Hinweis: Es gibt verschiedene Lösungen. Sie können z.B. Shamirs No-Key-Protokoll
 oder Hashfunktionen verwenden.
+
+
+\newcommand{\rarr}{$\rightarrow$}
+\newcommand{\larr}{$\leftarrow$}
+\begin{tabular}{ccc}
+	A      &  &  B \\
+                  \hline
+    H(x,Stein)          &\rarr &    “\$FSDAF”§\$”§ \\
+    \verb+2%!&”§$”$”§$+ &\larr &     H(x,Papier)   \\
+            x,Stein     &\rarr &    verfiy			\\
+            verify      &\larr &    y,Papier
+\end{tabular}
 
 \subsection{Chaffing and Winnowing}
 \subsubsection{Welche Tripel (Seriennummer, Paket, MAC) übertragen Sie nach dem
