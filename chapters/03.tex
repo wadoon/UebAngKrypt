@@ -185,6 +185,38 @@ Da alle in den folgenden Runden lediglich zu Spaltentransposition kommt und jede
 sind alle $C_i,D_i$ für alle $1 \le i \le 16$.
 
 \subsection{Meet-in-the-Middle-Angriff auf 3DES}
+\subsection{Meet-in-the-Middle-Angriff auf DES3}
+ Die Erklärungen basieren auf einem known-plain/ciphertext Angriff und sollen die benutzten Schlüsselpaare ergeben.\\
+ Legende:\\
+ \begin{align*}
+         P &= Plaintext\\
+         C &= Ciphertext\\
+         K_x &= Key_x
+     \end{align*}
+ \subsubsection{Angriff auf DES2}
+ \begin{itemize}
+     \item Verschlüsselung von DES2:
+     \begin{align}
+         D( K_2, E( K_1, P )) = C
+     \end{align}
+
+     \item Aufteilung der Verschlüsselung in zwei Funktionen:
+     \begin{align}
+         \overbrace{E(K_2, C)}^{A} = &C_{middle} = \overbrace{E(K_1, P)}^{B}
+     \end{align}
+
+     \item Mögliche Schlüsselmöglichkeiten:
+     \begin{align*}
+         A &= 2^{56}\\
+         B &= 2^{56}\\
+         A + B &= 2^{56} + 2^{56}\\
+         &= 2 * 2^{56}\\
+         &= 2^{57}
+     \end{align*}
+
+ \end{itemize}
+
+
 
 \subsection{Übungsaufgabe: Rechnen in $GF(2^3)$}
 \subsubsection{Berechnen Sie das Produkt der Elemente {5} * {3} sowie die Summe der
@@ -250,13 +282,500 @@ irreduzibles Polynom und die Verknüpfungstabellen für Addition und
 Multiplikation angeben.}
 
 \subsection{AES-MixColumns-Beispiel}
-\subsubsection{Berechnen Sie, in was die Spalte $ (d4 , bf , 4d , 30 )$ durch MixColumns transformiert wird.}
-\subsubsection{Überprüfen Sie das Ergebnis, indem das Ergebnis mit der Inversen Matrix
-multiplizieren und wieder die Ausgangsspalte erhalten.
-Hinweis: Die inverse Matrix finden Sie in FIPS 197.}
+ \subsubsection{Berechnen Sie eine Spaltentransformation durch MixColumns}
+ \begin{itemize}
+     \item Gegeben: $\begin{pmatrix}
+                        d4\\
+                        bf\\
+                        4d\\
+                        30
+                    \end{pmatrix}$
+     \item INT to HEX:
+     \begin{center}
+\begin{tabular}{lllllllllllllllll}
+INT & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\
+HEX & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & A & B & C & D & E & F
+     \end{tabular}
+     \end{center}
+
+     \item HEX to BYTE/BIT
+     \begin{center}
+\begin{tabular}{ccccccccc}
+HEX &  & $Byte_1 (INT)$ & $Byte_0 (INT)$ &  & $Byte_1$ & $Byte_0$ &  & State\\
+d4 & $\rightarrow$ & 13 & 4 & $\rightarrow$ & 1101 & 0100 & = & $S_0$\\
+bf & $\rightarrow$ & 11 & 15 & $\rightarrow$ & 1011 & 1111 & = & $S_1$\\
+4d & $\rightarrow$ & 4 & 13 & $\rightarrow$ & 0100 & 1101 & = & $S_2$\\
+30 & $\rightarrow$ & 3 & 0 & $\rightarrow$ & 0011 & 0000 & = & $S_3$
+     \end{tabular}
+     \end{center}
+
+     \item Definiton der MixColumns-Operation:
+     \begin{equation}
+         \begin{bmatrix}
+             S'_{0,C}\\
+             S'_{1,C}\\
+             S'_{2,C}\\
+             S'_{3,C}
+         \end{bmatrix}
+         =
+         \begin{bmatrix}
+             02 & 03 & 01 & 01\\
+             01 & 02 & 03 & 01\\
+             01 & 01 & 02 & 03\\
+             03 & 01 & 01 & 02
+         \end{bmatrix}
+         *
+         \begin{bmatrix}
+             S_{0,C}\\
+             S_{1,C}\\
+             S_{2,C}\\
+             S_{3,C}
+         \end{bmatrix}
+     \end{equation}
+
+     \item MixColumns-Operation:
+     \begin{equation}
+         \begin{bmatrix}
+             S'_{0,C}\\
+             S'_{1,C}\\
+             S'_{2,C}\\
+             S'_{3,C}
+         \end{bmatrix}
+         =
+         \begin{bmatrix}
+             02 & 03 & 01 & 01\\
+             01 & 02 & 03 & 01\\
+             01 & 01 & 02 & 03\\
+             03 & 01 & 01 & 02
+         \end{bmatrix}
+         *
+         \begin{bmatrix}
+             d4\\
+             bf\\
+             4d\\
+             30
+         \end{bmatrix}
+     \end{equation}
+
+%%%%% S'0C
+     \item $S'_{0,C}$:
+     \begin{equation}
+         S'_{0,C} = (\{02\} * S_{0,C}) \oplus (\{03\} * S_{1,C}) \oplus S_{2,C} \oplus S_{3,C}
+     \end{equation}
+
+     \begin{itemize}
+         \item $(\{02\} * S_{0,C})$
+
+\begin{center}
+\begin{tabular}{lllllllllllllllll}
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & * & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 0\\
+\hline
+ &  &  &  &  &  & 1 & 0 &  &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  & 1 & 0 &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & 1 & 0 &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  & 1 & 0 &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  & \\
+ \hline
+ &  &  &  &  &  & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 0 & 0 &  & \\
+ &  &  &  &  & $\oplus$ & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 1 &  & \\
+ \hline
+ &  &  &  &  &  & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 1 &  & \\
+ &  &  &  &  &  &  & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & = & B3
+         \end{tabular}
+         \end{center}
+
+        \item $(\{03\} * S_{1,C})$
+        \begin{center}
+\begin{tabular}{lllllllllllllllll}
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & * & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1\\
+\hline
+ &  &  &  &  &  & 1 & 1 &  &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  & 1 & 1 &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & 1 & 1 &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  & 1 & 1 &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  & 1 & 1 &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  & 1 & 1 &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  &  & 1 & 1 &  & \\
+ \hline
+ &  &  &  &  &  & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 1 &  & \\
+ &  &  &  &  & $\oplus$ & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 1 &  & \\
+ \hline
+ &  &  &  &  &  & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 0 &  & \\
+ &  &  &  &  &  &  & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 0 & = & DA
+         \end{tabular}
+         \end{center}
+
+        \item $\{B3\} \oplus \{DA\} \oplus \{4C\} \oplus \{30\}$
+        \begin{center}
+\begin{tabular}{lllllllllll}
+ & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 1 &  & \\
+ & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 0 &  & \\
+ & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 &  & \\
+$\oplus$ & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 &  & \\
+\hline
+ & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 0 &  & \\
+ &  &  &  & 1 & 0 & 1 & 0 & 0 & = & $\{14\}$
+        \end{tabular}
+        \end{center}
 
 
-\subsection{Multiplikation mit $x$ in AES}
+     \end{itemize}
+
+%%%%% S'1C
+     \item $S'_{1,C}$:
+     \begin{equation}
+         S'_{1,C} = S_{0,C} \oplus (\{02\} * S_{1,C}) \oplus (\{03\} * S_{2,C}) \oplus S_{3,C}
+     \end{equation}
+
+     \begin{itemize}
+         \item $(\{02\} * S_{1,C})$
+\begin{center}
+\begin{tabular}{lllllllllllllllll}
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & * & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1\\
+\hline
+ &  &  &  &  &  & 1 & 0 &  &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  & 1 & 0 &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & 1 & 0 &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  & 1 & 0 &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  & 1 & 0 &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  & 1 & 0 &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  &  & 1 & 0 &  & \\
+ \hline
+ &  &  &  &  &  & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 0 &  & \\
+         \end{tabular}
+         \end{center}
+
+        \item $(\{03\} * S_{2,C})$
+        \begin{center}
+\begin{tabular}{lllllllllllllllll}
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & * & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1\\
+\hline
+ &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  & 1 & 1 &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & 0 & 0 &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  & 1 & 1 &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  & 1 & 1 &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  &  & 1 & 1 &  & \\
+ \hline
+ &  &  &  &  &  &  & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 &  &
+         \end{tabular}
+         \end{center}
+       \end{itemize}
+
+        \item $\{D4\} \oplus \{xx\} \oplus \{xx\} \oplus \{30\}$
+        \begin{center}
+\begin{tabular}{llllllllllll}
+ &  & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 0 &  & \\
+ & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 0 &  & \\
+ &  & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 &  & \\
+$\oplus$ &  & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 &  & \\
+\hline
+ & 1 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 &  &\\
+ $\oplus$ & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 1 &  &\\
+ \hline
+ & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 0 &  &\\
+ &  & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 0 & = & $\{56\}$
+        \end{tabular}
+        \end{center}
+
+%%%%% S'2C
+     \item $S'_{2,C}$:
+     \begin{equation}
+         S'_{2,C} = S_{0,C} \oplus S_{1,C} \oplus (\{02\} * S_{2,C}) \oplus (\{03\} * S_{3,C})
+     \end{equation}
+
+     \begin{itemize}
+        \item $(\{02\} * S_{2,C})$
+\begin{center}
+\begin{tabular}{lllllllllllllllll}
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & * & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1\\
+\hline
+ &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  & 1 & 0 &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & 0 & 0 &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  & 1 & 0 &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  & 1 & 0 &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  &  & 1 & 0 &  & \\
+ \hline
+ &  &  &  &  &  & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 &  & \\
+         \end{tabular}
+         \end{center}
+
+        \item $(\{03\} * S_{3,C})$
+\begin{center}
+\begin{tabular}{lllllllllllllllll}
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & * & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0\\
+\hline
+ &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  & 1 & 1 &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & 1 & 1 &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  & \\
+ \hline
+ &  &  &  &  &  &  &  & 1 & 0 & 1 & 0 & 0 & 0 & 0 &  & \\
+         \end{tabular}
+         \end{center}
+
+        \item $\{D4\} \oplus \{BF\} \oplus \{xx\} \oplus \{xx\}$
+        \begin{center}
+\begin{tabular}{llllllllllll}
+ &  & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 0 &  & \\
+ &  & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 &  & \\
+ &  & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 &  & \\
+$\oplus$ &  & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 0 &  & \\
+\hline
+ &  & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & = & $\{A1\}$\\
+        \end{tabular}
+        \end{center}
+
+     \end{itemize}
+
+%%%%% S'3C
+     \item $S'_{3,C}$:
+     \begin{equation}
+         S'_{3,C} = (\{03\} * S_{0,C}) \oplus S_{1,C} \oplus S_{2,C} \oplus (\{02\} * S_{3,C})
+     \end{equation}
+
+     \begin{itemize}
+        \item $(\{03\} * S_{0,C})$
+\begin{center}
+\begin{tabular}{lllllllllllllllll}
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & * & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 0\\
+\hline
+ &  &  &  &  &  & 1 & 1 &  &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  & 1 & 1 &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & 1 & 1 &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  & 1 & 1 &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  & \\
+ \hline
+ &  &  &  &  &  & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 &  & \\
+         \end{tabular}
+         \end{center}
+
+        \item $(\{02\} * S_{3,C})$
+\begin{center}
+\begin{tabular}{lllllllllllllllll}
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & * & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0\\
+\hline
+ &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  & 0 & 0 &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  & 1 & 0 &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & 1 & 0 &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  &  & \\
+ &  &  &  &  &  &  &  &  &  &  &  &  & 0 & 0 &  & \\
+ \hline
+ &  &  &  &  &  &  &  & 1 & 1 & 0 & 0 & 0 & 0 & 0 &  & \\
+         \end{tabular}
+         \end{center}
+
+     \end{itemize}
+
+     \item $\{xx\} \oplus \{BF\} \oplus \{4D\} \oplus \{xx\}$
+\begin{center}
+\begin{tabular}{llllllllllll}
+ & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 &  & \\
+ &  &  & 1 & 1 & 0 & 0 & 0 & 0 & 0 &  & \\
+ &  & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 &  & \\
+$\oplus$ &  & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 &  & \\
+\hline
+ & 1 & 1 & 1 & 1 & 0 & 1 & 1 & 1 & 0 &  & \\
+ $\oplus$ & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 1 &  & \\
+ \hline
+ & 0 & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 1 &  &\\
+ &  & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 1 & = & $\{F5\}$\\
+\end{tabular}
+\end{center}
+
+     \item Ergebnis:
+     \begin{equation}
+         \begin{bmatrix}
+             14\\
+             56\\
+             A1\\
+             F5
+         \end{bmatrix}
+         =
+         \begin{bmatrix}
+             02 & 03 & 01 & 01\\
+             01 & 02 & 03 & 01\\
+             01 & 01 & 02 & 03\\
+             03 & 01 & 01 & 02
+         \end{bmatrix}
+         *
+         \begin{bmatrix}
+             d4\\
+             bf\\
+             4d\\
+             30
+         \end{bmatrix}
+     \end{equation}
+
+ \end{itemize}
+
+ \subsubsection{Überprüfen Sie das Ergebnis, indem das Ergebnis mit der Inversen Matrix multiplizieren und wieder die Ausgangsspalte erhalten.}
+ Hinweis: Die inverse Matrix finden Sie in \href{http://csrc.nist.gov/publications/fips/fips197/fips-197.pdf}{FIPS 197 (S.27 InvMixColumns())} .
+ \begin{itemize}
+     \item Definition der inversen MixColumns-Operation:
+     \begin{equation}
+         \begin{bmatrix}
+             S'_{0,C}\\
+             S'_{1,C}\\
+             S'_{2,C}\\
+             S'_{3,C}
+         \end{bmatrix}
+         =
+         \begin{bmatrix}
+             0E & 0B & 0D & 09\\
+             09 & 0E & 0B & 0D\\
+             0D & 09 & 0E & 0B\\
+             0B & 0D & 09 & 0E
+         \end{bmatrix}
+         *
+         \begin{bmatrix}
+             S_{0,C}\\
+             S_{1,C}\\
+             S_{2,C}\\
+             S_{3,C}
+         \end{bmatrix}
+     \end{equation}
+
+     \item Berechnung durch die inverse Matrix zur Lösungsprobe:\\
+     Siehe mixColumnsInv() in Java. Danach stimmt die Lösung.
+ \end{itemize}
+
+ \subsubsection{MixColumns in Java}
+ \begin{itemize}
+     \item MixColumns()
+     \begin{lstlisting}[caption=mixColumns]{mixColumns}
+   public int[] mixColumns( int[] array )
+   {
+       int[] res = new int[array.length];
+
+       //S'0C
+       //({02} * S0) XOR ({03} * S1) XOR S2 XOR S3
+       int s0 = galoaMult( 2, array[0] )
+                 ^ galoaMult( 3, array[1] )
+                 ^ array[2] ^ array[3];
+       res[0] = s0;
+
+       //S'1C
+       //S0 XOR ({02} * S1) XOR ({03} * S2) XOR S3
+       int s1 = array[0] ^ galoaMult( 2, array[1] )
+                 ^ galoaMult( 3, array[2] ) ^ array[3];
+       res[1] = s1;
+
+       //S'2C
+       //S0 XOR S1 XOR ({02} * S2) XOR ({03} * S3)
+       int s2 = array[0] ^ array[1]
+                 ^ galoaMult( 2, array[2] )
+                 ^ galoaMult( 3, array[3] );
+       res[2] = s2;
+
+       //S'3C
+       //({03} * S0) XOR S1 XOR S2 XOR ({02} * S3)
+       int s3 = galoaMult( 3, array[0] ) ^ array[1]
+                 ^ array[2] ^ galoaMult( 2, array[3] );
+       res[3] = s3;
+
+       return res;
+   }//mixColumns()
+ \end{lstlisting}
+     \item Multiplikation im GF
+     \begin{lstlisting}[caption=galoaMult]{galoaMult}
+     public int galoaMult( int a, int b )
+     {
+         int res = 0;
+         int t;
+         byte aa = (byte) a;
+         byte bb = (byte) b;
+
+         while( aa != 0 )
+         {
+             if( ( aa & 1 ) != 0 )
+             {
+                 res = (byte) ( res ^ bb );
+             }//if
+             t = (byte) ( bb & 0x80 );
+             bb = (byte) ( bb << 1 );
+             if( t != 0 )
+             {
+                 bb = (byte) ( bb ^ 0x1b );
+             }//if
+
+             aa = (byte) ( ( aa & 0xff ) >> 1 );
+         }//while
+
+         if( res < 0 )
+         {
+             res += 256;
+         }//if
+
+         return res;
+     }//galoaMult()
+     \end{lstlisting}
+
+ \end{itemize}
+
+ \subsubsection{MixColumnsInverse in Java}
+ \begin{itemize}
+     \item MixColumnsInv()
+     \begin{lstlisting}[caption=mixColumnsInv]{mixColumnsInv}
+         public int[] mixColumnsInv( int[] array )
+         {
+             int[] res = new int[array.length];
+
+             //S'0C
+             //({14} * S0) XOR ({11} * S1) XOR ({13} * S2) XOR ({09} * S3)
+             int s0 = galoaMult( 14, array[0] ) ^ galoaMult( 11, array[1] )
+                         ^ galoaMult( 13, array[2] )
+                         ^ galoaMult( 9, array[3] );
+             res[0] = s0;
+
+             //S'1C
+             //({09} * S0) XOR ({14} * S1) XOR ({11} * S2) XOR ({13} * S3)
+             int s1 = galoaMult( 9, array[0] ) ^ galoaMult( 14, array[1] )
+                         ^ galoaMult( 11, array[2] )
+                         ^ galoaMult( 13, array[3] );
+             res[1] = s1;
+
+             //S'2C
+             //({13} * S0) XOR ({09} * S1) XOR ({14} * S2) XOR ({11} * S3)
+             int s2 = galoaMult( 13, array[0] ) ^ galoaMult( 9, array[1] )
+                         ^ galoaMult( 14, array[2] )
+                         ^ galoaMult( 11, array[3] );
+             res[2] = s2;
+
+             //S'3C
+             //({11} * S0) XOR ({13} * S1) XOR ({09} * S2) XOR ({14} * S3)
+             int s3 = galoaMult( 11, array[0] ) ^ galoaMult( 13, array[1] )
+                         ^ galoaMult( 9, array[2] )
+                         ^ galoaMult( 14, array[3] );
+             res[3] = s3;
+
+             return res;
+         }//mixColumnsInv()
+     \end{lstlisting}
+
+     \item Multiplikation im GF:\\
+     siehe Multiplikation in GF unter MixColumns in Java
+ \end{itemize}
 
 	
 

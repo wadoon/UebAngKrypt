@@ -1,0 +1,124 @@
+
+\section{Doppelwürfel}
+ \subsection{Entschlüsselung des Doppelwürfels}
+ Entschlüsseln Sie (von Hand) den folgenden Chiffretext mit den Schlüsseln K1 = \textit{KRYPTOLOGIE} und K2 = \textit{WISSENSCHAFT}:\\
+ ADRHIFOHCTSNIFGOETIIGHMIINTHIEIWFETÄREETPCSRSTLOSKNSDEICITEIT\\
+ ECNSBAIHMSSORDYEIE\\
+ Hinweis: Berücksichtigen Sie den unvollständigen Würfel gemäß dem Vorlesungsskript.\\\\
+ \begin{enumerate}
+    \item Gegeben\\
+ $K1 =$ KRYPTOLOGIE $|K1| = 11$\\
+ $K2 =$ WISSENSCHAFT $|K2| = 12$\\
+ $|Chiffretext| = 79$\\
+ Nächste Zahl durch 12 teilbar: $84 = 7 * 12$\\
+
+     \item Anordnung in Größtes Grid $\rightarrow$ Zeile\\
+     {%
+     \newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+
+\begin{center}
+\begin{tabular}{cccccccccccc}
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12\\
+13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24\\
+25 & 26 & 27 & 28 & 29 & 30 & 31 & 32 & 33 & 34 & 35 & 36\\
+37 & 38 & 39 & 40 & 41 & 42 & 43 & 44 & 45 & 46 & 47 & 48\\
+49 & 50 & 51 & 52 & 53 & 54 & 55 & 56 & 57 & 58 & 59 & 60\\
+61 & 62 & 63 & 64 & 65 & 66 & 67 & 68 & 69 & 70 & 71 & 72\\
+73 & 74 & 75 & 76 & 77 & 78 & 79 & × & × & × & × & ×
+ \end{tabular}
+ \end{center}
+}%
+
+     \item Neuaufteilung, da leere Spalten hinter den ersten 7 Überlängen (79\ mod\ 12 = 7)\\
+
+\begin{center}
+\begin{tabular}{cccccccccccc}
+W & I & S & S & E & N & S & C & H & A & F & T\\
+A & C & E & F & H & I & N & S & S & S & T & W\\
+1 & 7 & 13 & 20 & 26 & 32 & 39 & 46 & 53 & 60 & 67 & 73\\
+2 & 8 & 14 & 21 & 27 & 33 & 40 & 47 & 54 & 61 & 68 & 74\\
+3 & 9 & 15 & 22 & 28 & 34 & 41 & 48 & 55 & 62 & 69 & 75\\
+4 & 10 & 16 & 23 & 29 & 35 & 42 & 49 & 56 & 63 & 70 & 76\\
+5 & 11 & 17 & 24 & 30 & 36 & 43 & 50 & 57 & 64 & 71 & 77\\
+6 & 12 & 18 & 25 & 31 & 37 & 44 & 51 & 58 & 65 & 72 & 78\\
+× & × & 19 & × & × & 38 & 45 & 52 & 59 & 66 & × & 79
+\end{tabular}
+\end{center}
+
+     \item Anordnung bei lesbarem Schlüssel\\
+
+\begin{center}
+\begin{tabular}{cccccccccccc}
+W & I & S & S & E & N & S & C & H & A & F & T\\
+73 & 32 & 46 & 53 & 13 & 39 & 60 & 7 & 26 & 1 & 20 & 67\\
+74 & 33 & 47 & 54 & 14 & 40 & 61 & 8 & 27 & 2 & 21 & 68\\
+75 & 34 & 48 & 55 & 15 & 41 & 62 & 9 & 28 & 3 & 22 & 69\\
+76 & 35 & 49 & 56 & 16 & 42 & 63 & 10 & 29 & 4 & 23 & 70\\
+77 & 36 & 50 & 57 & 17 & 43 & 64 & 11 & 30 & 5 & 24 & 71\\
+78 & 37 & 51 & 58 & 18 & 44 & 65 & 12 & 31 & 6 & 25 & 72\\
+79 & 38 & 52 & 59 & 19 & 45 & 66 & × & × & × & × & ×
+\end{tabular}
+\end{center}
+
+     \item Anordung mit dem zweiten Schlüssel\\
+
+\begin{center}
+\begin{tabular}{ccccccccccc}
+K & R & Y & P & T & O & L & O & G & I & E\\
+E & G & I & K & L & O & O & P & R & T & Y\\
+73 & 7 & 47 & 2 & 41 & 76 & 10 & 50 & 5 & 44 & 79\\
+32 & 26 & 54 & 21 & 62 & 35 & 29 & 57 & 24 & 65 & 38\\
+46 & 1 & 14 & 68 & 9 & 49 & 4 & 17 & 71 & 12 & 52\\
+53 & 20 & 40 & 75 & 28 & 56 & 23 & 43 & 78 & 31 & 59\\
+13 & 67 & 61 & 34 & 3 & 16 & 70 & 64 & 37 & 6 & 19\\
+39 & 74 & 8 & 48 & 22 & 42 & 77 & 11 & 51 & 25 & 45\\
+60 & 33 & 27 & 55 & 69 & 63 & 36 & 30 & 58 & 72 & 66\\
+× & × & × & 15 & × & × & × & × & 18 & × & ×
+\end{tabular}
+\end{center}
+
+     \item Anordnung mit lesbarem Schlüssel\\
+
+\begin{center}
+\begin{tabular}{ccccccccccc}
+K & R & Y & P & T & O & L & O & G & I & E\\
+2 & 5 & 79 & 50 & 44 & 76 & 41 & 10 & 7 & 47 & 73\\
+21 & 24 & 38 & 57 & 65 & 35 & 62 & 29 & 26 & 54 & 32\\
+68 & 71 & 52 & 17 & 12 & 49 & 9 & 4 & 1 & 14 & 46\\
+75 & 78 & 59 & 43 & 31 & 56 & 28 & 23 & 20 & 40 & 53\\
+34 & 37 & 19 & 64 & 6 & 16 & 3 & 70 & 67 & 61 & 13\\
+48 & 51 & 45 & 11 & 25 & 42 & 22 & 77 & 74 & 8 & 39\\
+55 & 58 & 66 & 30 & 72 & 63 & 69 & 36 & 33 & 27 & 60\\
+15 & 18 & × & × & × & × & × & × & × & × & ×
+\end{tabular}
+\end{center}
+
+     \item Ersetzung der Zahlen durch die dazugehörige Chiffrenposition\\
+
+\begin{center}
+\begin{tabular}{ccccccccccc}
+D & I & E & K & R & Y & P & T & O & L & O\\
+G & I & E & I & S & T & E & I & N & E & W\\
+I & S & S & E & N & S & C & H & A & F & T\\
+D & I & E & S & I & C & H & M & I & T & D\\
+E & R & I & N & F & O & R & M & A & T & I\\
+O & N & S & S & I & C & H & E & R & H & E\\
+I & T & B & E & S & C & H & Ä & F & T & I\\
+G & T & × & × & × & × & × & × & × & × & ×
+\end{tabular}
+\end{center}
+
+     \item Die entschlüsselte Nachricht\\
+DIE KRYPTOLOGIE IST EINE WISSENSCHAFT DIE SICH MIT DER INFORMATIONSSICHERHEIT BESCHÄFTIGT
+
+ \end{enumerate}
+
+ \subsection{Der quadratische Doppelwürfel}
+ In dieser Aufgabe soll der quadratische Doppelwürfel analysiert werden. Für diesen gilt: $|K|=|K1|=|K2|$ und $|Klartext|=|K|^2$.
+ \begin{enumerate}
+    \item Verschlüsseln Sie einen beliebigen Text mit diesem Verfahren.
+    \item Wobei handelt es sich bei diesem Verfahren? Worin unterscheidet sich dieses zum allgemeinen Doppelwürfel?
+    \item Was liegt im Fall $K1 = K2$ vor?
+    \item Optional: Führen Sie eine Kryptanalyse durch. Zeigen Sie eine effiziente Möglichkeit die Verschlüsselung zu brechen. Differenzieren Sie hier zwischen einem Known-Plaintext und Ciphertext-Only Angriff.
+ \end{enumerate}
+
