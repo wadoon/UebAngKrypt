@@ -1,0 +1,108 @@
+\section{Übungsaufgaben: Kryptologische Anwendungen und Protokolle – Teil 3}
+
+\subsection{Fiat-Shamir}
+Gegeben sei $n = 35, s = 29$.Die Anzahl der Runden sei $k = 5$.
+Peggy wählt für die Runden 1 bis 5 folgende Zufallszahlen: $r_1 = 9, r_2 = 13, r_3 = 7, r_4 = 12, r_15 = 17$
+Victor antwortet mit folgender Bit-Folge: $b_{12345} = 0,1, 0,0,1$
+
+\subsubsection{Führen Sie Fiat-Shamir durch. Geben Sie $x_1, y_1, \ldots, x_5, y_5$ an.}
+
+\begin{tabular}{*{3}{c}}
+Peggy 				      & 		Kanal 	 &		Viktor \\ \hline
+$x = r_1^2 \mod n = $    & $11 \rightarrow$ &          \\
+						    & $\leftarrow 0$   &   $b_1$  \\
+$y = r_1 \cdot s^b\mod n$   & $5 \rightarrow$  &   $y^2 = x\cdot v^b\mod n = 9^2 = 11$ stimmt\\ \hline
+
+$x = r_2^2 \mod n  =$  & $29 \rightarrow$ & 			   \\
+						  &	$\leftarrow 1$   &	    $b_2$  \\
+$y = r_2 \cdot 29^1\mod n$   & $1 \rightarrow$ &      $y^2 = x\cdot v^b\mod n \imp 1 = 29^2 = x$ stimmt\\ \hline
+ 			  			  
+
+$x = r_3^2 \mod n = $    & $14 \rightarrow$ & 			   \\
+						    &	$\leftarrow 0$ &	    $b_3$  \\
+$y = r_3 \cdot s^0\mod n$   & $7 \rightarrow$ &      $y^2 = x\cdot v^b\mod n \imp 7^2 = 14$ stimmt\\ \hline
+ 			  			  
+ 			  			   			  			  			  			  
+$x = r_4^2 \mod n =  $  & $4 \rightarrow$ & 			   \\
+						  &	$\leftarrow 0$   &	    $b_4$  \\
+$y = r_4 \cdot s^0\mod n$   & $12 \rightarrow$ &      $y^2 = x\cdot v^b\mod n \imp 12^2 = 4$ stimmt\\ \hline
+ 			  			   			  			  
+
+$x = r_5^2 \mod n = $  & $9 \rightarrow$ & 			   \\
+						  &	$\leftarrow 1$   &	    $b_5$  \\
+$y = r_5 \cdot 29^1\mod n$   & $3 \rightarrow$ &      $y^2 = x\cdot v^b\mod n \imp 3^2 = 9 \cdot 1$ stimmt\\ \hline 			  			  
+\end{tabular}
+
+
+\subsubsection{Angenommen eine Angreiferin Eve errät die Bitfolge. Wie hoch ist die Wahrscheinlichkeit dafür?} Gegen Sie unterschiedliche Pärchen für $x, y$ an, mit der sich Eve gegenüber Victor als Peggy ausgeben kann.
+
+\begin{equation}
+	|\mathcal{B}|^5 = 32 \text{ Möglichkeiten}
+\end{equation}
+
+\begin{equation}
+	\begin{matrix}
+				x & y        \\
+				r_1 & r_1^2  \\				
+	\end{matrix}
+\end{equation}
+	
+\subsection{Bit-Commitment mit Einweg-Hash-Funktion}
+Sei die Hashfunktion $H = MD5, R_1 = 01000~11010$ und $R_2 = 00110~11110$.
+\subsubsection{Führen Sie das Bit-Commitment-Protokoll (Festlegung und Offenlegung) für $b=0$ und $b=1$ durch.}
+Eingabe folgte als ASCII:
+
+\begin{verbatim}
+echo -n 010001101000110111100 | md5sum 
+    50b3ce3f3b19bf4ec7f358a977d9c7e4 
+echo -n 010001101000110111101 | md5sum 
+    cda9c8f61cd6d2b35d778af367b9a467
+\end{verbatim}
+
+\subsubsection{Angenommen Alice verrät $R_2$. Wie kommt Bob allein durch den Festlegungsteil des Protokolls an das von Alice gewählte Bit?}
+
+Er berechnet jeweils $H(R_1,R_2,{0,1})$ und sieht anhand des Hashes welches Bit Alice gewählt hat.
+
+\subsection{Elektronisches Geld}
+\subsubsection{Protokoll 4: Ein Betrüger möchte eine Bank dazu bringen, blind eine 100€-Münze zu signieren, seinem Konto aber nur 1€ zu belasten. Dazu erzeugt er 99 Münzen à 1€ und eine à 100€. Wie groß ist die Wahrscheinlichkeit, dass die Bank blind die 100€-Münze signiert?}
+
+Urnenmodell ohne zurücklegen:
+
+%\newcommand{\binom}[2]{\begin{pmatrix}#1\\#2\end{pmatrix}}
+
+
+Wie groß ist die Wahrscheinlichkeit eine rote Kugel (100€-Münze) aus 100 Kugeln bei 99 Zügen auszuwählen.
+
+\begin{equation}
+	P(X=m) = \frac{ \binom{M}{m} \binom{N-M}{n-m} }{ \binom{N}{n}}
+\end{equation}
+
+\begin{align}
+	N &= 100 & n&=99 &  M &= 1 & m &= 1
+\end{align}
+
+\begin{align}
+	P(X=1) &= \frac{ \binom{1}{1} \binom{99}{99} }{ \binom{100}{99}} \\
+		   &= \frac{1 \cdot 1}{100} = 0.01
+\end{align}
+
+\subsubsection{Wie viele Bits muss die Seriennummer einer E-Münze lang sein, damit die Wahrscheinlichkeit für eine zufällige Übereinstimmung zweier Münzen kleiner $10^{10}$ ist?}
+
+Geburtstagsparadoxon:
+
+\[
+	10^{10} = 10^9 * 10 = {10^3}^{3} *10  \approx {2^10}^3 * 2^3 = 2^33
+\]
+
+Antwort mind. 66 Bits.
+
+\subsubsection{Protokoll 5: Wenn Eve elektronische Münzen von Alice stiehlt, kann sie damit noch nicht bezahlen. Warum?}
+
+Aufgrund der Identitätsabfragen des Händlers.
+
+\subsubsection{Protokoll 5:An welcher Stelle im Protokoll hat Eve trotzdem leichtes Spiel, wenn sie es schafft, münzen zu stehlen?}
+
+Gute Frage nächste Frage....
+
+\subsubsection{Protokoll 5: Alice kopiert eine Münze, verwendet diese zwei Mal und der Händler steht als Betrüger da. Durch welche Festsetzung kann die Wahrscheinlichkeit dafür kleiner $10^{10}$ gehalten werden?}
+
