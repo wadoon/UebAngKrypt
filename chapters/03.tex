@@ -185,7 +185,6 @@ Da alle in den folgenden Runden lediglich zu Spaltentransposition kommt und jede
 sind alle $C_i,D_i$ für alle $1 \le i \le 16$.
 
 \subsection{Meet-in-the-Middle-Angriff auf 3DES}
-\subsection{Meet-in-the-Middle-Angriff auf DES3}
  Die Erklärungen basieren auf einem known-plain/ciphertext Angriff und sollen die benutzten Schlüsselpaare ergeben.\\
  Legende:\\
  \begin{align*}
@@ -218,7 +217,7 @@ sind alle $C_i,D_i$ für alle $1 \le i \le 16$.
 
 
 
-\subsection{Übungsaufgabe: Rechnen in $GF(2^3)$}
+\subsection{Rechnen in $GF(2^3)$}
 \subsubsection{Berechnen Sie das Produkt der Elemente {5} * {3} sowie die Summe der
 Elemente {5} + {3} für das Modularpolynom $M(x)=x3+x+1$.}
 
@@ -274,9 +273,31 @@ a(x) &= {100} \cdot {11} + {1}
 \end{verbatim}
 \[ r = 1 \quad q = 100 \]
 
-\subsection{Übungsaufgabe: $GF(2^3)$}
+\subsection{$GF(2^3)$}
 \subsubsection{Finden Sie alle irreduziblen Polynome vom Grad 3 mit Koeffizienten aus
 $GF(2)$.}
+
+\begin{center}
+\begin{tabular}{c|cccccc}
+& 010 & 011 & 100 & 110 & 101 & 111 \\ \hline
+010 & 100 & 110 & 1000 & 1100 & 1010 & 1110 \\ 
+011 &   & 101 & 1100 & 1010 & 1111 & 1001 \\ 
+100 &   &   & 10000 & $\cdots$ & $\cdots$ & $\cdots$ \\ 
+110 &   &   &   & $\ddots$     & $\cdots$ & $\vdots$ \\ 
+101 &   &   &   &              & $\ddots$ & $\vdots$ \\ 
+111 &   &   &   &              &          & 10101    \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+reduzible sind: 
+1001,
+1010,
+1100,
+1110, 
+1111, 
+=9,10,12,14,15 \\
+
 \subsubsection{Definieren Sie den Körper mit 8 Elementen, indem Sie ein passendes
 irreduzibles Polynom und die Verknüpfungstabellen für Addition und
 Multiplikation angeben.}
